@@ -6,10 +6,11 @@ use Yii;
 use backend\models\Post;
 use backend\models\PostSearch;
 use yii\web\Controller;
+use yii\filters\AccessControl;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\filters\AccessControl;
-use common\models\LoginForm;
+
+
 
 /**
  * PostController implements the CRUD actions for Post model.
@@ -19,14 +20,14 @@ class PostController extends Controller
     /**
      * {@inheritdoc}
      */
-    public function behaviors()
+    public function behaviors() 
     {
         return [
             'access' => [
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index', 'login', 'create', 'update', 'delete', 'view'],
+                        'actions' => ['index', 'create','update','view','delete'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -47,6 +48,7 @@ class PostController extends Controller
      */
     public function actionIndex()
     {
+        if(Yii::$app->user->can('post-list')){
         $searchModel = new PostSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -55,7 +57,8 @@ class PostController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
-
+         else echo'<center><h1>Please Login</h1></center>';
+    }
     /**
      * Displays a single Post model.
      * @param integer $id
@@ -64,9 +67,12 @@ class PostController extends Controller
      */
     public function actionView($id)
     {
+        if(Yii::$app->user->can('post-view')){
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
+        }
+        else echo'<center><h1>Please Login</h1></center>';
     }
 
     /**
@@ -77,7 +83,7 @@ class PostController extends Controller
     public function actionCreate()
     {
         $model = new Post();
-
+        if(Yii::$app->user->can('post-create')){
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
@@ -85,6 +91,8 @@ class PostController extends Controller
         return $this->render('create', [
             'model' => $model,
         ]);
+        }
+        else echo'<center><h1>Please Login</h1></center>';
     }
 
     /**
@@ -97,7 +105,7 @@ class PostController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
+        if(Yii::$app->user->can('post-update')){
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
@@ -105,6 +113,8 @@ class PostController extends Controller
         return $this->render('update', [
             'model' => $model,
         ]);
+        }
+        else echo '<center><h1>Please Login</h1></center>';
     }
 
     /**
@@ -114,11 +124,15 @@ class PostController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
+
     public function actionDelete($id)
     {
+        if(Yii::$app->user->can('post-delete')){
         $this->findModel($id)->delete();
-
+        
         return $this->redirect(['index']);
+    }
+        else echo '<center><h1>Please Login</h1></center>'; 
     }
 
     /**
@@ -137,3 +151,4 @@ class PostController extends Controller
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 }
+?>

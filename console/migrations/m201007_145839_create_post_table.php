@@ -5,7 +5,7 @@ use yii\db\Migration;
 /**
  * Handles the creation of table `{{%post}}`.
  */
-class m200921_103428_create_post_table extends Migration
+class m201007_145839_create_post_table extends Migration
 {
     /**
      * {@inheritdoc}
@@ -15,13 +15,13 @@ class m200921_103428_create_post_table extends Migration
         $this->createTable('{{%post}}', [
             'id' => $this->primaryKey(),
             'title' =>$this->string(250)->notNull(),
-            'short_description' => $this->string(400),
+            'short_description' => $this->string(450),
             'description' => $this->text(),
             'is_active' => $this->boolean()->defaultValue(0),
-            'created_at' =>$this->integer(),
-            'created_by' =>$this->integer(),
-            'updated_at' =>$this->integer(),
-            'updated_by' =>$this->integer()
+            'created_at' => $this->integer(),
+            'created_by' => $this->integer(),
+            'updated_at' => $this->integer(),
+            'updated_by' => $this->integer()
         ]);
     }
 

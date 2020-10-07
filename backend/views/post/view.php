@@ -31,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'title',
-            'short_description',
+            'shot_description',
             'description:ntext',
             'is_active',
             'created_at',
