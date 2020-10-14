@@ -17,9 +17,12 @@ return [
             'csrfParam' => '_csrf-backend',
         ],
         'user' => [
-            'identityClass' => 'common\models\User',
-            'enableAutoLogin' => true,
-            'identityCookie' => ['name' => '_identity-backend', 'httpOnly' => true],
+            'class' => 'common\component\User',
+            //'identityClass' => 'common\models\User',
+            //'enableAutoLogin' => true,
+            //'identityCookie' => ['name' => '_identity-backend', 'httpOnly' => true],
+
+
         ],
         'session' => [
             // this is the name of the session cookie used for login on the backend
