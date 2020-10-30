@@ -33,6 +33,8 @@ class m201022_105223_create_permission_of_post extends Migration
         $delete = $auth->createPermission('post-delete');
         $delete->description = 'Delete a post';
         $auth->add($delete);
+
+        return false;
     }
 
     /**
@@ -69,7 +71,7 @@ class m201022_105223_create_permission_of_post extends Migration
 
         //echo "m201022_105223_create_permission_of_post cannot be reverted.\n";
 
-        return true;
+        return false;
     }
 
     /*

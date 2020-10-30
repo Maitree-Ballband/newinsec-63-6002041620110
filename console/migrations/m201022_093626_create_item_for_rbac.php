@@ -55,7 +55,7 @@ class m201022_093626_create_item_for_rbac extends Migration
 
         //echo "m201022_093626_create_item_for_rbac cannot be reverted.\n";
 
-        return true;
+        return false;
     }
 
     /*
